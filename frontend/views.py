@@ -8,8 +8,3 @@ def index(request):
 	template = loader.get_template('frontend/index.html')
 	context = {'':''}
 	return HttpResponse(template.render(context, request))
-
-def home(request):
-	template = loader.get_template('frontend/home.html')
-	context = {'':''}
-	return HttpResponse(template.render(context, request))
