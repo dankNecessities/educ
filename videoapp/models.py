@@ -1,7 +1,6 @@
 from django.db import models
 
-# Create your models here.
-class VideoModel(models.Model):
+class Video(models.Model):
 	"""Model for uploaded videos"""
 
 	title = models.CharField(max_length=128, blank=False)	

@@ -1,7 +1,14 @@
 from django.urls import path, include
 from . import views
+from .views import VideoViewSet, LoginViewSet
+from rest_framework import routers
 
-urlpatterns = [
+router = routers.SimpleRouter()
+router.register(r'videos', VideoViewSet, basename='version')
+router.register(r'authenticate', LoginViewSet, basename='authenticate')
+urlpatterns = router.urls
+
+urlpatterns += [
 	path('login/', views.login, name="Login"),
-	path('authlogin/', views.handle_login_data, name="Handle Login Data"),
+	#path('authenticate/', views.handle_login_data, name="Handle Login Data"),
 ]
