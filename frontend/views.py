@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
-@login_required(login_url='login/')
+@login_required(login_url='/login/')
 def index(request):
 	template = loader.get_template('frontend/index.html')
 	context = {'':''}

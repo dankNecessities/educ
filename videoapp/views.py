@@ -2,8 +2,7 @@ from django.shortcuts import render
 from django.shortcuts import render, loader
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.http import require_http_methods
-from django.contrib.auth.decorators import login_required, permission_required
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, logout, login
 from django.contrib.auth.models import User
 from rest_framework import viewsets, mixins, status
 from rest_framework.response import Response
@@ -14,6 +13,7 @@ class VideoViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin, mixins.List
 
 	queryset = Video.objects.all()
 	serializer_class = VideoSerializer
+	permission_classes = ['IsAuthenticated']
 
 	def list(self, request):
 		serializer = VideoSerializer(self.queryset, many=True)
@@ -32,40 +32,54 @@ class VideoViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin, mixins.List
 				'message': 'Could not upload audio'
 			}, status=status.HTTP_400_BAD_REQUEST)
 
-# Create your views here.
-def login(request):
-	template = loader.get_template('login.html')
-	context = {'':''}
-	return HttpResponse(template.render(context, request))
-
 class LoginViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin):
 	"""Viewset for Logging in"""
 
 	queryset = User.objects.all()
 	serializer_class = LoginSerializer
+	permission_classes = []
 
 	def create(self, request):
 		serializer = self.serializer_class(data=request.data)
 
-		if serializer.is_valid():
-			user = authenticate(username=request.POST['username'], password=request.POST['password'])
-			return HttpResponseRedirect('/')
+		if 'password' and 'username' in request.POST:
+			user = authenticate(username=request.POST['username'], password=request.POST['password'])			
+			if user is not None and user.is_active:
+				login(request, user)
+				template = loader.get_template('frontend/index.html')
+				context = {'':''}
+				return HttpResponse(template.render(context, request))
+				#return HttpResponseRedirect('/')
+			else:
+				template = loader.get_template('login.html')
+				context = {'error':'Username or password incorrect'}
+				return HttpResponse(template.render(context, request))
+				#return Response({
+				#'status': 'Bad Request',
+				#'message': 'Could not authenticate'
+				#}, status=status.HTTP_400_BAD_REQUEST)	
 		else:
 			return Response({
 				'status': 'Bad Request',
-				'message': 'Could not authenticate'
+				'message': 'Check login fields'
 			}, status=status.HTTP_400_BAD_REQUEST)
 
-@require_http_methods(["POST"])
-def handle_login_data(request):
+class LogoutViewSet(viewsets.GenericViewSet, mixins.ListModelMixin):
+	"""Viewset for logging out"""
 
-	if request.method == 'POST':
-		#form = LoginForm(request.POST)
+	queryset = User.objects.all()
+	serializer_class = LoginSerializer
 
-		if form.is_valid():
-			print('VALID')
-			if (authenticate(username=request.POST['username'], password=request.POST['password'])):
-				print(request.POST['username'])
-			else:
-				print('NOT AUTHENTICATED')
-				return HttpResponseRedirect('/videoapp/')
+	def list(self, request):
+		logout(request)
+		print('LOGGED OUT')
+		template = loader.get_template('login.html')
+		context = {'':''}
+		return HttpResponse(template.render(context, request))
+
+
+# Create your views here.
+def login_user(request):
+	template = loader.get_template('login.html')
+	context = {'':''}
+	return HttpResponse(template.render(context, request))

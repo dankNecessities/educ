@@ -52,6 +52,12 @@
 						<span class="focus-input100" data-placeholder="&#xf191;"></span>
 					</div>
 
+					{% if error is not None %}
+						<div class="error">
+							<label class="error-msg">{{ error }}</label>
+						</div>
+					{% endif %}
+
 					<div class="container-login100-form-btn">
 						<button class="login100-form-btn" type="submit">
 							Login
