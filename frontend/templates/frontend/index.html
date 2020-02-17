@@ -17,6 +17,9 @@ body {font-family: "Lato", sans-serif}
 <div class="w3-top">
   <div class="w3-bar w3-purple w3-card">
     <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+    <a href="/" class="w3-bar-item w3-button w3-padding-large">
+      <img height="25px" width="25px" src="{% static "images/pic2.png" %}">
+    </a>
     <a href="/" class="w3-bar-item w3-button w3-padding-large">HOME</a>
     <a href="#band" class="w3-bar-item w3-button w3-padding-large w3-hide-small">INFORMATION</a>
     <a href="/logout/" class="w3-bar-item w3-button w3-padding-large w3-hide-small">LOGOUT</a>
@@ -46,8 +49,16 @@ body {font-family: "Lato", sans-serif}
    <!-- The Band Section -->
   <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="band">
     <h2 class="w3-wide"<B>SHINCHEONJI</B><BR>UGANDA PEACE CHURCH</h2>
+
+    <video width="720" height="360" controls>
+      <source src="/media/vid_1.mp4" type="video/mp4">
+      <source src="movie.ogg" type="video/ogg">
+      Your browser does not support the video tag.
+    </video>
+    <div id="app">
+      
+    </div>
    
-<img src="{% static "images/pic.jpg" %}" alt="Flowers in Chania"><br> 
 
       <div class="w3-third">
       </div>
@@ -74,7 +85,7 @@ body {font-family: "Lato", sans-serif}
   <i class="fa fa-twitter w3-hover-opacity"></i>
   
 </footer>
-
+<script src="{% static "frontend/main.js" %}"></script>
 <script>
 // Automatic Slideshow - change image every 4 seconds
 var myIndex = 0;
