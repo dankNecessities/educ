@@ -48,33 +48,45 @@ body {font-family: "Lato", sans-serif}
 
    <!-- The Band Section -->
   <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="band">
-    <h2 class="w3-wide"<B>SHINCHEONJI</B><BR>UGANDA PEACE CHURCH</h2>
+    <h2 class="w3-wide">SHINCHEONJI</B><BR>UGANDA PEACE CHURCH</h2>
 
-    <video width="720" height="360" controls>
-      <source src="/media/vid_1.mp4" type="video/mp4">
-      <source src="movie.ogg" type="video/ogg">
-      Your browser does not support the video tag.
-    </video>
-    <div id="app">
+    <div class="w3-cell-row">
       
-    </div>
-   
-
-      <div class="w3-third">
+      <div class="w3-container w3-cell">
+        <video width="720" height="360" controls>
+          <source src="/media/vid_1.mp4" type="video/mp4">
+          <source src="movie.ogg" type="video/ogg">
+          Your browser does not support the video tag.
+        </video> 
       </div>
+
+    </div>
+
+    <div class="w3-row">
+      <div class="w3-card-4 w3-third">
+        <div class="w3-card-4">
+          <img height="120" width="80%" src="{% static "images/pic.jpg" %}">
         </div>
-
-      <div class="w3-col m6">
-        
+      </div>
+      <div class="w3-card-4 w3-third">
+        <div class="w3-card-4">
+          <img height="120" width="200" src="{% static "images/pic.jpg" %}">
+        </div>
+      </div>
+      <div class="w3-card-4 w3-third">
+        <div class="w3-card-4">
+          <img height="120" width="200" src="{% static "images/pic.jpg" %}">
+        </div>
       </div>
     </div>
+
   </div>
+</div>
   
 <!-- End Page Content -->
 </div>
 
 <!-- Image of location/map -->
-<img src="/w3images/map.jpg" class="w3-image w3-greyscale-min" style="width:100%">
 
 <!-- Footer -->
 <footer class="w3-container w3-padding-64 w3-center w3-opacity w3-purple w3-xlarge">
