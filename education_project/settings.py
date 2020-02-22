@@ -25,7 +25,7 @@ SECRET_KEY = 'lv4-&03)+to_l0*cj4v5()9sh1$49)8osuu!@kuk0m^kmecc+#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['samo12.pythonanywhere.com']
+ALLOWED_HOSTS = ['samo12.pythonanywhere.com', '127.0.0.1']
 
 
 # Application definition
