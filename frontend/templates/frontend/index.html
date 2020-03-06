@@ -62,22 +62,20 @@ body {font-family: "Lato", sans-serif}
 
     </div>
 
-    <div class="w3-row">
-      <div class="w3-card-4 w3-third">
-        <div class="w3-card-4">
-          <img height="auto" width="80%" src="{% static "images/pic.jpg" %}">
+    <div class="w3-column">
+    {% if videos %}
+      {% for video in videos %}
+        <div class="w3-card-4 w3-third">
+          <div class="w3-card-4">
+            <video width="100%" height="360" controls>
+              <source src="/media/{{ video }}" type="video/mp4">
+              <source src="movie.ogg" type="video/ogg">
+              Your browser does not support the video tag.
+            </video> 
+          </div>
         </div>
-      </div>
-      <div class="w3-card-4 w3-third">
-        <div class="w3-card-4">
-          <img height="auto" width="80%" src="{% static "images/pic.jpg" %}">
-        </div>
-      </div>
-      <div class="w3-card-4 w3-third">
-        <div class="w3-card-4">
-          <img height="auto" width="80%" src="{% static "images/pic.jpg" %}">
-        </div>
-      </div>
+      {% endfor %}
+    {% endif %}
     </div>
 
   </div>
