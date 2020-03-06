@@ -11,5 +11,6 @@ urlpatterns = router.urls
 
 urlpatterns += [
 	path('login/', views.login_user, name="Login"),
+    path('home/', views.home, name="home"),
 	#path('authenticate/', views.handle_login_data, name="Handle Login Data"),
 ]

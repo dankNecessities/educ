@@ -8,6 +8,8 @@ from rest_framework import viewsets, mixins, status
 from rest_framework.response import Response
 from .serializers import VideoSerializer, LoginSerializer
 from .models import Video
+import os
+from django.conf import settings
 
 class VideoViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin, mixins.ListModelMixin):
 
@@ -46,10 +48,8 @@ class LoginViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin):
 			user = authenticate(username=request.POST['username'], password=request.POST['password'])			
 			if user is not None and user.is_active:
 				login(request, user)
-				template = loader.get_template('frontend/index.html')
-				context = {'':''}
-				return HttpResponse(template.render(context, request))
-				#return HttpResponseRedirect('/')
+				#return HttpResponse(template.render(context, request))
+				return HttpResponseRedirect('/home/')
 			else:
 				template = loader.get_template('login.html')
 				context = {'error':'Username or password incorrect'}
@@ -82,4 +82,10 @@ class LogoutViewSet(viewsets.GenericViewSet, mixins.ListModelMixin):
 def login_user(request):
 	template = loader.get_template('login.html')
 	context = {'':''}
+	return HttpResponse(template.render(context, request))
+
+def home(request):
+	template = loader.get_template('frontend/index.html')
+	vid_list = os.listdir(settings.MEDIA_ROOT)
+	context = {'videos': vid_list}
 	return HttpResponse(template.render(context, request))
